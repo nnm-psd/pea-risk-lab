@@ -41,15 +41,7 @@ def fetch_price_history(tickers, period="3y", interval="1d"):
         # Flat columns -- older yfinance behavior for a single ticker.
         close = data[["Close"]].rename(columns={"Close": tickers[0]})
 
-    close = close.dropna(how="all")
-    # A ticker that fetched but returned no usable prices (typo, delisted,
-    # wrong suffix) shows up as an all-NaN column. Drop it here rather than
-    # letting it silently zero out every row downstream via dropna(how="any").
-    all_nan_cols = [c for c in close.columns if close[c].dropna().empty]
-    if all_nan_cols:
-        close = close.drop(columns=all_nan_cols)
-
-    return close
+    return close.dropna(how="all")
 
 
 @st.cache_data(ttl=60 * 60, show_spinner=False)

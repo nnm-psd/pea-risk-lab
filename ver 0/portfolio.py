@@ -13,15 +13,7 @@ from config import TRADING_DAYS_PER_YEAR
 
 def returns_matrix(price_df):
     """Log returns for multiple tickers, aligned on common dates."""
-    returns = np.log(price_df / price_df.shift(1)).dropna()
-    if returns.empty:
-        raise ValueError(
-            "No overlapping trading days across the selected instruments after "
-            "removing missing data. This usually means one ticker failed to "
-            "fetch correctly, or the selected instruments have non-overlapping "
-            "trading histories."
-        )
-    return returns
+    return np.log(price_df / price_df.shift(1)).dropna()
 
 
 def annualized_cov_matrix(returns_df):

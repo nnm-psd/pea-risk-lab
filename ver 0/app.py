@@ -182,11 +182,7 @@ else:
     )
     weighting_key = "min_variance" if weighting_mode.startswith("Optimize") else "equal"
 
-    try:
-        combo = pf.combination_summary(prices[selected_tickers], weighting=weighting_key)
-    except ValueError as e:
-        st.error(str(e))
-        st.stop()
+    combo = pf.combination_summary(prices[selected_tickers], weighting=weighting_key)
 
     # --- the focal moment: weighted-average vol vs actual portfolio vol ---
     st.subheader("Diversification effect")
